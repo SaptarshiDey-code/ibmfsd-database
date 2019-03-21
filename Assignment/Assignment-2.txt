@@ -1,0 +1,41 @@
+
+
+1. List Employee Count Under Each Manager-Name,Count:
+
+Select E.firstname,count(F.reportsTo) from Employees E join Employees F on E.EmployeeNumber=F.reportsTo group by E.firstname;
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+2. List Customer Wise Unoque Product Ordered:Customer Name, Product Name:
+
+
+Select C.customerName, P.productName from Customers C join Orders O on C.customerNumber=O.customerNumber 
+join OrderDetails OD on O.orderNumber=OD.orderNumber join Products P on P.productCode=OD.productCode;
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+3. List Product Wise Total Order Amount:
+
+ Select P.productname,sum(OD.priceEach) from Products P join OrderDetails OD on P.productCode=OD.productCode group by P.productname;
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+4. List Details OF Manager Who has Highest Sales:
+
+ Select E.firstName,sum(P.amount) from Employees E join Employees F on E.EmployeeNumber=F.reportsTo 
+join Customers C on C.salesRepEmployeeNumber=F.EmployeeNumber 
+join Payments P on P.customerNumber=C.customerNumber group by E.firstName order by sum(P.amount) desc;
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+5. List Month Wise NO. OF Orders placed for Each product Line:
+
+ Select pl.productline,extract(month from o.orderDate) as Month,count(extract(month from o.orderDate)) from productlines pl 
+join products p on p.productline=pl.productline join orderdetails od on od.productcode=p.productcode 
+join orders o on od.orderNumber=o.orderNumber group by pl.productline,Month;
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+6. List Customers who has not placed any order for any products:
+
+Select customerName from customers where customerNumber not in (select distinct(customerNumber) from orders);
+------------------------------------------------------------------------------------------------------------------------------------------------

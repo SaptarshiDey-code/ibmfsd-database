@@ -1,0 +1,28 @@
+1.list dept wise emp count:	
+
+Select D.dname,count(*) from Employee E join Department D on D.dcode=E.department group by D.Dname;
+-----------------------------------------------------------------------------------------------------------------------------
+2. list dept wise have salary more than 50k:
+
+Select D.dname,E.name,E.salary from Employee E join Department D on D.dcode=E.department 
+	group by D.dname,E.name,E.salary having E.salary>50000;
+
+------------------------------------------------------------------------------------------------------------------------------
+3. list country, dept wise avg salary:
+
+Select C.name,D.dname,avg(E.salary) from Employee E join Country C on C.id=E.country_id 
+join Department D on E.department=D.dcode group by C.name,D.dname;
+
+---------------------------------------------------------------------------------------------------------------------------------
+4.list country,dept have employee count more than 2 ordered by dept name:
+
+ Select C.name,D.dname,Count(*) from Employee E join Country C on C.id=E.country_id 
+join Department D on D.dcode= E.department  group by C.name,D.dname having Count(*)>1;
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+5. list dept with employee name contains 'sa' and exists more than one country:
+
+Select D.dname,E.name from Employee E join Department D on D.dcode=E.department where E.name Like "%s%a%" or E.name like "%S%a%";
+
+--------------------------------------------------------------------------------------------------------------------------------------------
